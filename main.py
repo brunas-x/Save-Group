@@ -1,6 +1,9 @@
 # (c) @AbirHasan2005
 
 import asyncio
+from binascii import (
+    Error
+)
 from pyrogram import Client, filters, idle
 from pyrogram.errors import UserNotParticipant
 from pyrogram.types import Message, ChatPermissions
@@ -124,7 +127,10 @@ async def start_handler(bot: Client, event: Message):
     if __data == "/start":
         await sendMessage(bot, "Go Away Unkil", event.message_id, event.chat.id)
     else:
-        file_id = int(b64_to_str(__data))
+        try:
+            file_id = int(b64_to_str(__data))
+        except (Error, UnicodeDecodeError):
+            file_id = int(__data)
         try:
             await bot.forward_messages(chat_id=event.chat.id, from_chat_id=Config.DB_CHANNEL_ID, message_ids=file_id)
         except:
