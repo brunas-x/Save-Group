@@ -10,6 +10,7 @@ from handlers.database.access_db import db
 from handlers.forcesub_handler import ForceSub
 from handlers.forwarder_handler import forwardMessage
 from handlers.send_mesage_handler import sendMessage
+from handlers.helpers import b64_to_str, str_to_b64
 from handlers.database.add_user import AddUserToDatabase
 
 User = Client(
@@ -60,14 +61,14 @@ async def files_handler(bot: Client, cmd: Message):
                "But,\n" \
                "File Stored in Database!\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=AbirHasan2005_{str(forward.message_id)})"
+               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(forward.message_id)})"
     else:
         text = f"{cmd.from_user.mention} Unkil,\n" \
                "This File will be deleted in 10 minutes.\n\n" \
                "But,\n" \
                "Your File stored in Database!\n\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=AbirHasan2005_{str(forward.message_id)})"
+               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(forward.message_id)})"
     await sendMessage(
         bot=bot,
         message_id=cmd.message_id,
@@ -123,7 +124,7 @@ async def start_handler(bot: Client, event: Message):
     if __data == "/start":
         await sendMessage(bot, "Go Away Unkil", event.message_id, event.chat.id)
     else:
-        file_id = int(__data)
+        file_id = int(b64_to_str(__data))
         try:
             await bot.forward_messages(chat_id=event.chat.id, from_chat_id=Config.DB_CHANNEL_ID, message_ids=file_id)
         except:
