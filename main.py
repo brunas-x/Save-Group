@@ -61,14 +61,14 @@ async def files_handler(bot: Client, cmd: Message):
                "But,\n" \
                "File Stored in Database!\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(forward.message_id)})"
+               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(str(forward.message_id))})"
     else:
         text = f"{cmd.from_user.mention} Unkil,\n" \
                "This File will be deleted in 10 minutes.\n\n" \
                "But,\n" \
                "Your File stored in Database!\n\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(forward.message_id)})"
+               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(str(forward.message_id))})"
     await sendMessage(
         bot=bot,
         message_id=cmd.message_id,
