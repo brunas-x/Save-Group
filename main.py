@@ -64,14 +64,14 @@ async def files_handler(bot: Client, cmd: Message):
                "But,\n" \
                "File Stored in Database!\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(str(forward.message_id))})"
+               f"[👉 Get File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(str(forward.message_id))}0)"
     else:
         text = f"{cmd.from_user.mention} Unkil,\n" \
                "This File will be deleted in 10 minutes.\n\n" \
                "But,\n" \
                "Your File stored in Database!\n\n" \
                f"**File Name:** `{media.file_name}`\n\n" \
-               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(str(forward.message_id))})"
+               f"[👉 Get Your File Now 👈](https://t.me/{(await Bot.get_me()).username}?start=_{str_to_b64(str(forward.message_id))}0)"
     await sendMessage(
         bot=bot,
         message_id=cmd.message_id,
@@ -128,7 +128,7 @@ async def start_handler(bot: Client, event: Message):
         await sendMessage(bot, "Go Away Unkil", event.message_id, event.chat.id)
     else:
         try:
-            file_id = int(b64_to_str(__data))
+            file_id = int(b64_to_str(__data[:-1]))
         except (Error, UnicodeDecodeError):
             file_id = int(__data)
         try:
