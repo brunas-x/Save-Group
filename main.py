@@ -128,7 +128,7 @@ async def start_handler(bot: Client, event: Message):
         await sendMessage(bot, "Go Away Unkil", event.message_id, event.chat.id)
     else:
         try:
-            file_id = int(b64_to_str(__data)
+            file_id = int(b64_to_str(__data))
         except (Error, UnicodeDecodeError):
             file_id = int(__data)
         try:
